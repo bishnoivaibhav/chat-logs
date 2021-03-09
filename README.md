@@ -1,3 +1,8 @@
+## CouchBase Instance has been terminated as we have exhausted AWS free tier EC2 Resources.
+```
+Your AWS account 788014656349 has exceeded 85% of the usage limit for one or more AWS Free Tier-eligible services for the month of March.
+```
+
 # Chat Logs Service
 
 Created by vbishnoi_be15@thapar.edu
