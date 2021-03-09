@@ -1,0 +1,41 @@
+server:
+    applicationConnectors:
+        - type: "http"
+          port: 7000
+    adminConnectors:
+        - type: "http"
+          port: 7001
+    requestLog:
+        appenders:
+          - type: "file"
+            currentLogFilename: "logs/access.log"
+            archivedLogFilenamePattern: "logs/access.%d{yyyy-MM-dd}.log.gz"
+    type: "default"
+    rootPath: "/chat-logs-service/dev/*"
+
+
+# CouchBase Cloud hosted NoSql Database Credentials with read/write access Hosted on EC2 for this web-app.
+couchBaseCloudEndPoint : "37b3ab90-f7c1-4640-ab0b-0b24c2505b98.dp.cloud.couchbase.com"
+couchBaseCloudUserName : "chat-logs-api"
+couchBaseCloudUserPassword : "Qweasdzxc@123"
+bucketName : "couchbasecloudbucket"
+
+
+
+logging:
+  level: INFO
+
+  # This is required to get request/response logging
+  loggers:
+    "org.glassfish.jersey.logging.LoggingFeature": DEBUG
+    "com.cvent": DEBUG
+
+    # Log the banner to STDOUT
+    "io.dropwizard.server.ServerFactory":
+        level: INFO
+        additive: false
+        appenders:
+          - type: "console"
+
+  appenders:
+    - type: "console"

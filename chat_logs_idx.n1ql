@@ -1,0 +1,29 @@
+# Owner: vbishnoi_be15@thapar.edu
+# Service: chat-logs
+# Purpose: Page through a list of message logs created by the user.  user id and message id as a filter to ensure we don't cross data.
+# Usage: Get a paged list of message logs, corresponding to a user-id.
+
+# KEY FORMAT - dev::chat-logs-service::logMessageDetailsRequest::{user-id}::{message-id}.
+# Value of format class MessageDetails in chat-logs.
+
+#  Query:
+#
+#   SELECT logMessageDetailsRequest FROM couchbasecloudbucket AS b USE INDEX (`chat_logs_idx`)
+#   WHERE
+#      split(meta().`id`, "::")[0] = 'dev' AND
+#      split(meta(b).`id`, "::")[1] = 'chat-logs-service' AND
+#      split(meta(b).`id`, "::")[2] = 'logMessageDetailsRequest' AND
+#      split(meta().`id`, "::")[3] = '69a8ea4e-c770-4b9f-96d9-c6dac8b6af68'
+#      split(meta().`id`, "::")[4] = '69a8ea4e-c770-4b9f-96d9-c6dac8b6af68'             # message-id
+#   ORDER BY `message-id`
+#   LIMIT 1
+
+
+CREATE INDEX `chat_logs_idx`
+ON `couchbasecloudbucket`
+    ((split((meta().`id`), "::")[3]),
+    (split((meta().`id`), "::")[4]),`message-id`)
+WHERE
+    (((split((meta().`id`), "::")[0]) = "dev") and
+    ((split((meta().`id`), "::")[1]) = "chat-logs-service") and
+    ((split((meta().`id`), "::")[2]) = "logMessageDetailsRequest"))
